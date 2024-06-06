@@ -1,20 +1,20 @@
 import React from "react";
-function SignUpForm() {
+const SignUp = () => {
   const [state, setState] = React.useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
   });
-  const handleChange = evt => {
-    const value = evt.target.value;
+  const handleChange = (event) => {
+    const value = event.target.value;
     setState({
       ...state,
-      [evt.target.name]: value
+      [event.target.name]: value,
     });
   };
 
-  const handleOnSubmit = evt => {
-    evt.preventDefault();
+  const handleOnSubmit = (event) => {
+    event.preventDefault();
 
     const { name, email, password } = state;
     alert(
@@ -24,27 +24,15 @@ function SignUpForm() {
     for (const key in state) {
       setState({
         ...state,
-        [key]: ""
+        [key]: "",
       });
     }
   };
-
   return (
     <div className="form-container sign-up-container">
       <form onSubmit={handleOnSubmit}>
         <h1>Create Account</h1>
-        <div className="social-container">
-          <a href="#" className="social">
-            <i className="fab fa-facebook-f" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-google-plus-g" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-linkedin-in" />
-          </a>
-        </div>
-        <span>or use your email for registration</span>
+
         <input
           type="text"
           name="name"
@@ -70,6 +58,6 @@ function SignUpForm() {
       </form>
     </div>
   );
-}
+};
 
-export default SignUpForm;
+export { SignUp };
