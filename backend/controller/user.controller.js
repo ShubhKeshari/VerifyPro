@@ -6,7 +6,7 @@ const { BlacklistToken } = require("../models/blacklistToken.model");
 const saltRound = 7;
 const userRegister = async (req, res) => {
   try {
-    const { name, email, password} = req.body;
+    const { name, email, password } = req.body;
     const userExist = await Users.findOne({ email });
     if (userExist) {
       return res
@@ -22,12 +22,10 @@ const userRegister = async (req, res) => {
         email,
         password: hash,
       });
+      console.log(user);
       await user.save();
       return res.status(200).json({
-        data: {
-          _id: user._id,
-          email: user.email,
-        },
+        error: false,
         message: "New User registered successfully",
       });
     });
@@ -59,14 +57,19 @@ const userLogin = async (req, res) => {
           },
           process.env.ACCESS_TOKEN_SECRET
         );
-        return res.status(200).json({
-          accessToken,
-          data: {
-            userId: user._id,
-            email: user.email,
-          },
-          message: "User logged in successfully",
-        });
+        return res
+          .status(200)
+          .cookie("accessToken", accessToken, {
+            httpOnly: true,
+            expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+          })
+          .json({
+            accessToken,
+            data: {
+              username: user.name,
+            },
+            message: "User logged in successfully",
+          });
       } else {
         return res
           .status(400)
@@ -80,14 +83,12 @@ const userLogin = async (req, res) => {
 
 const userLogout = async (req, res) => {
   try {
-    if (
-      req.headers.authorization &&
-      req.headers.authorization.split(" ")[0] == "Bearer"
-    ) {
-      const accessToken = req.headers.authorization.split(" ")[1];
+    if (req.cookies.accessToken) {
+      const accessToken = req.cookies.accessToken;
+      console.log(accessToken);
       const blacklistToken = new BlacklistToken({ token: accessToken });
       await blacklistToken.save();
-      return res.status(200).json({
+      return res.status(200).clearCookie("accessToken").json({
         error: false,
         message: "User logged out successfully",
       });
