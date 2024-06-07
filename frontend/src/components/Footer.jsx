@@ -49,7 +49,7 @@ export function Footer() {
         justify={"center"}
         align={"center"}
       >
-        <Text color={"blue.400"} fontWeight={800}>WonderOn</Text>
+        <Text color={"blue.400"} fontWeight={800}>WanderOn</Text>
         <Stack direction={"row"} spacing={6}>
           <NavLink to="/">Home</NavLink>
           <NavLink to="/about">About</NavLink>
@@ -72,7 +72,7 @@ export function Footer() {
           justify={{ base: "center", md: "space-between" }}
           align={{ base: "center", md: "center" }}
         >
-          <Text>© 2024 WonderOn. All rights reserved</Text>
+          <Text>© 2024 WanderOn. All rights reserved</Text>
           <Stack direction={"row"} spacing={6}>
             <SocialButton label={"Twitter"} href={"#"}>
               <FaTwitter />

@@ -52,7 +52,7 @@ export function Navbar() {
                 color: "blue.500",
               }}
             >
-              WonderOn
+              WanderOn
             </Box>
           </Flex>
 
