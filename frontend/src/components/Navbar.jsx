@@ -76,7 +76,7 @@ const handleLogout=async()=>{
 }
   return (
     <>
-      <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
+      <Box bg={useColorModeValue("gray.100", "gray.900")} px={4} position={"sticky"} top={0} left={0} zIndex={3}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <Flex justify={"center"} align={"center"} gap={"5px"}>
             <IconButton
