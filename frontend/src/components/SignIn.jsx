@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
-
-const url = "http://localhost:5000"
+import { BASE_URL } from "../util/vars";
 
 const SignIn = () => {
   const [state, setState] = React.useState({
@@ -27,12 +26,13 @@ const SignIn = () => {
     const { email, password } = state;
     
     try {
-      const response = await fetch(`${url}/users/login`, {
+      const response = await fetch(`${BASE_URL}/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
+        credentials: 'include', // Include cookies in the request
       });
 
       if (!response.ok) {

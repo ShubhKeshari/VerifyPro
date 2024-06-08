@@ -13,7 +13,7 @@ import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { useContext } from "react";
-const url = "http://localhost:5000"
+import { BASE_URL } from "../util/vars";
 const Links = [
   {
     to: "/",
@@ -36,11 +36,12 @@ export function Navbar() {
 
 const handleLogout=async()=>{
   try {
-    const response = await fetch(`${url}/users/logout`, {
+    const response = await fetch(`${BASE_URL}/users/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include', // Include cookies in the request
     });
 
     if (!response.ok) {

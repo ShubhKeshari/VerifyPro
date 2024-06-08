@@ -1,6 +1,8 @@
 import { useToast } from "@chakra-ui/react";
 import React from "react";
-const url = "http://localhost:5000"
+import { BASE_URL } from "../util/vars";
+
+
 const SignUp = () => {
   const [state, setState] = React.useState({
     name: "",
@@ -22,12 +24,13 @@ const SignUp = () => {
     const data = { name, email, password };
 
     try {
-      const response = await fetch(`${url}/users/register`, {
+      const response = await fetch(`${BASE_URL}/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
+        credentials: 'include', // Include cookies in the request
       });
       if (!response.ok) {
         const errorData = await response.json();
