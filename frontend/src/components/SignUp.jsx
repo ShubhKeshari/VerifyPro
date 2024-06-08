@@ -21,7 +21,7 @@ const SignUp = () => {
     event.preventDefault();
     const { name, email, password } = state;
     const data = { name, email, password };
-
+    
     try {
       const response = await fetch(`${BASE_URL}/users/register`, {
         method: "POST",
@@ -29,7 +29,7 @@ const SignUp = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-        credentials: 'include', // Include cookies in the request
+        credentials: "include", // Include cookies in the request
       });
       if (!response.ok) {
         const errorData = await response.json();
