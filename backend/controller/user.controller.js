@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const { BlacklistToken } = require("../models/blacklistToken.model");
-const saltRound = 7;
+const saltRound = 8;
 const userRegister = async (req, res) => {
   try {
     const { name, email, password } = req.body;
