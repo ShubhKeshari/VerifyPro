@@ -1,10 +1,14 @@
+import { useToast } from "@chakra-ui/react";
 import React from "react";
+const url = "http://localhost:5000"
 const SignUp = () => {
   const [state, setState] = React.useState({
     name: "",
     email: "",
     password: "",
   });
+  const toast = useToast();
+
   const handleChange = (event) => {
     const value = event.target.value;
     setState({
@@ -12,22 +16,47 @@ const SignUp = () => {
       [event.target.name]: value,
     });
   };
-
-  const handleOnSubmit = (event) => {
+  const handleOnSubmit = async (event) => {
     event.preventDefault();
-
     const { name, email, password } = state;
-    alert(
-      `You are sign up with name: ${name} email: ${email} and password: ${password}`
-    );
+    const data = { name, email, password };
 
-    for (const key in state) {
-      setState({
-        ...state,
-        [key]: "",
+    try {
+      const response = await fetch(`${url}/users/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Something went wrong");
+      }
+      const result = await response.json();
+      toast({
+        title: `${result.message}`,
+        status: "success",
+        duration: 4000,
+        position: "top-right",
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: `${error.message}`,
+        status: "error",
+        duration: 4000,
+        position: "top-right",
+        isClosable: true,
       });
     }
+    setState({
+      name: "",
+      email: "",
+      password: "",
+    });
   };
+
   return (
     <div className="form-container sign-up-container">
       <form onSubmit={handleOnSubmit}>

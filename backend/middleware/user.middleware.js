@@ -5,7 +5,7 @@ const validateRegister = (req, res, next) => {
   } else {
     return res
       .status(400)
-      .json({ error: true, message: "name, email, password" });
+      .json({ error: true, message: "name, email, password required" });
   }
 };
 

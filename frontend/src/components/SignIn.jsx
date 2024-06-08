@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
+
+const url = "http://localhost:5000"
+
 const SignIn = () => {
   const [state, setState] = React.useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
+  const { setAuth } = useContext(AuthContext);
+  const toast = useToast();
   const handleChange = (event) => {
     const value = event.target.value;
     setState({
@@ -12,18 +21,51 @@ const SignIn = () => {
     });
   };
 
-  const handleOnSubmit = (event) => {
+  const handleOnSubmit = async (event) => {
     event.preventDefault();
 
     const { email, password } = state;
-    alert(`You are login with email: ${email} and password: ${password}`);
+    
+    try {
+      const response = await fetch(`${url}/users/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    for (const key in state) {
-      setState({
-        ...state,
-        [key]: "",
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Something went wrong');
+      }
+      const result = await response.json();
+      setAuth({
+        isAuth: true,
+        username: result.data.username,
+        accessToken: result.accessToken,
+      });
+      toast({
+        title: `${result.message}`,
+        status: "success",
+        duration: 4000,
+        position: "top-right",
+        isClosable: true,
+      });
+      navigate("/");
+    } catch (error) {
+      toast({
+        title: `${error.message}`,
+        status: "error",
+        duration: 4000,
+        position: "top-right",
+        isClosable: true,
       });
     }
+    setState({
+      email: "",
+      password: "",
+    });
   };
   return (
     <div className="form-container sign-in-container">
