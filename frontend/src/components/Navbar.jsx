@@ -28,6 +28,7 @@ const Links = [
     displayText: "About",
   },
 ];
+
 export function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();

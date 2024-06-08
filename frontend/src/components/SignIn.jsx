@@ -24,7 +24,7 @@ const SignIn = () => {
     event.preventDefault();
 
     const { email, password } = state;
-    
+    console.log(email,password);
     try {
       const response = await fetch(`${BASE_URL}/users/login`, {
         method: 'POST',

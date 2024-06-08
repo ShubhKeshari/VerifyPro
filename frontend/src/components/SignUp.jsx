@@ -2,7 +2,6 @@ import { useToast } from "@chakra-ui/react";
 import React from "react";
 import { BASE_URL } from "../util/vars";
 
-
 const SignUp = () => {
   const [state, setState] = React.useState({
     name: "",
