@@ -25,7 +25,16 @@ const SignIn = () => {
     event.preventDefault();
 
     const { email, password } = state;
-    //console.log(email,password);
+    if(!email || !password){
+      toast({
+        title: "Email and Password Required",
+        status: "error",
+        duration: 4000,
+        position: "top-right",
+        isClosable: true,
+      });
+      return;
+    }
     try {
       const response = await fetch(`${BASE_URL}/users/login`, {
         method: 'POST',

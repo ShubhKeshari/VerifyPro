@@ -21,7 +21,16 @@ const SignUp = () => {
     event.preventDefault();
     const { name, email, password } = state;
     const data = { name, email, password };
-    
+    if(!name || !email || !password){
+      toast({
+        title: "Username, Email and Password Required",
+        status: "error",
+        duration: 4000,
+        position: "top-right",
+        isClosable: true,
+      });
+      return;
+    }
     try {
       const response = await fetch(`${BASE_URL}/users/register`, {
         method: "POST",
