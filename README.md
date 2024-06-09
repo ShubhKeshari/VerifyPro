@@ -82,26 +82,27 @@ Backend: https://verifyprobackend.onrender.com
 
 # Project Features
 
-## User Authentication
+### User Authentication
 - Implemented user registration, login, and logout functionalities.
 - Password validation: Ensures passwords contain at least one uppercase letter, one special character, and are at least 8 characters long.
 - Password hashing using bcrypt for enhanced security.
 
-## Access Token Management
+### Access Token Management
 - Utilized cookies to store access tokens for user authentication.
 - Access tokens are provided to the frontend to verify user identity.
 - Logout functionality includes blacklisting the access token to prevent unauthorized access.
 
-## Protected Routes
+### Protected Routes
 - Created a protected route for `MyTrip` in the frontend.
 - Users must be authenticated to access this route, ensuring secure access control.
 
-## Frontend Validations
+### Frontend Validations
 - Email type checking is implemented to ensure valid email formats are used during registration and login.
 
-## Security Enhancements
+### Security Enhancements
 - Securely handling user data and tokens through cookies and hashed passwords.
 - Implementing token blacklisting on logout to prevent unauthorized reuse.
+
 
 
 ## Default user credentials
